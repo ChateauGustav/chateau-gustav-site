@@ -412,6 +412,36 @@
     border-radius: 2px;
   }
 
+  /* ── Email copy toast ─────────────────────────────────────── */
+  .email-toast {
+    position: fixed;
+    left: 50%;
+    bottom: 1.5rem;
+    transform: translate(-50%, 20px);
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: var(--ink);
+    color: var(--parchment);
+    border: 1px solid var(--gold);
+    border-radius: 8px;
+    padding: 0.75rem 1.1rem;
+    max-width: calc(100vw - 2rem);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    font-size: 0.85rem;
+  }
+  .email-toast.show { opacity: 1; transform: translate(-50%, 0); }
+  .email-toast .toast-icon { font-family: 'Allura', cursive; color: var(--gold-soft); font-size: 1.2rem; line-height: 1; }
+  .email-toast strong { color: var(--gold-soft); font-weight: 500; }
+  @media (max-width: 600px) {
+    .email-toast { left: 1rem; right: 1rem; bottom: 1rem; transform: translateY(20px); max-width: none; }
+    .email-toast.show { transform: translateY(0); }
+  }
+
   /* ── Desktop scaling ─────────────────────────────────────── */
   @media (min-width: 720px) {
     body { font-size: 18px; }
@@ -589,13 +619,18 @@
   <h2>Château Gustav</h2>
   <p class="footer-sub">Private Wine Tastings · Dallas, Texas</p>
   <div class="socials">
-    <a href="https://instagram.com/chateaugustav" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://instagram.com/delegendary1" target="_blank" rel="noopener">Instagram</a>
     <a href="https://tiktok.com/@_chiefwineofficer" target="_blank" rel="noopener">TikTok</a>
-    <a href="mailto:chateaugustav@gmail.com">Email</a>
+    <a href="mailto:chateaugustav@gmail.com" onclick="copyEmailFallback(event)">Email</a>
   </div>
-  <p class="footer-meta">© 2025 Château Gustav · <a href="mailto:chateaugustav@gmail.com">chateaugustav@gmail.com</a></p>
+  <p class="footer-meta">© 2025 Château Gustav · <a href="mailto:chateaugustav@gmail.com" onclick="copyEmailFallback(event)">chateaugustav@gmail.com</a></p>
 </footer>
 
+<!-- Shown briefly after clicking an email link, confirming the address copied -->
+<div class="email-toast" id="email-toast" role="status" aria-live="polite">
+  <span class="toast-icon">✦</span>
+  <span class="toast-text">Address copied — <strong>chateaugustav@gmail.com</strong></span>
+</div>
 <script>
   // Subtle scroll reveal
   (function () {
@@ -611,6 +646,38 @@
     }, { threshold: 0.12 });
     els.forEach(function (el) { io.observe(el); });
   })();
+
+  // Email links: let mailto: try first, but always show a visible
+  // confirmation and copy the address — so something useful happens
+  // even where the device/browser can't open a mail app.
+  var emailToastTimer = null;
+  function copyEmailFallback(e) {
+    var address = 'chateaugustav@gmail.com';
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(address);
+      } else {
+        var temp = document.createElement('textarea');
+        temp.value = address;
+        temp.style.position = 'fixed';
+        temp.style.opacity = '0';
+        document.body.appendChild(temp);
+        temp.select();
+        document.execCommand('copy');
+        document.body.removeChild(temp);
+      }
+    } catch (err) {
+      console.error('Copy failed (continuing):', err);
+    }
+    var toast = document.getElementById('email-toast');
+    if (toast) {
+      toast.classList.add('show');
+      clearTimeout(emailToastTimer);
+      emailToastTimer = setTimeout(function () { toast.classList.remove('show'); }, 4000);
+    }
+    // Intentionally not calling e.preventDefault() — mailto: still
+    // gets its normal chance to open a mail app alongside this.
+  }
 </script>
 </body>
 </html>
