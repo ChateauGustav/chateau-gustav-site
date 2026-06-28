@@ -273,62 +273,6 @@
     .pairing { padding: 2.6rem 2.4rem; }
   }
 
-  /* ── Booking toast (shown when a booking link opens in a new tab) ── */
-  .booking-toast {
-    position: fixed;
-    left: 50%;
-    bottom: 1.5rem;
-    transform: translate(-50%, 20px);
-    z-index: 200;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    background: var(--ink);
-    color: var(--parchment);
-    border: 1px solid var(--gold);
-    border-radius: 8px;
-    padding: 0.85rem 1.2rem;
-    max-width: calc(100vw - 2rem);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.25);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease, transform 0.3s ease;
-  }
-  .booking-toast.show {
-    opacity: 1;
-    transform: translate(-50%, 0);
-    pointer-events: auto;
-  }
-  .booking-toast .toast-icon {
-    font-family: 'Pinyon Script', 'Allura', cursive;
-    color: var(--gold-soft);
-    font-size: 1.3rem;
-    line-height: 1;
-    flex-shrink: 0;
-  }
-  .booking-toast .toast-text {
-    font-size: 0.85rem;
-    line-height: 1.45;
-  }
-  .booking-toast .toast-text strong {
-    color: var(--gold-soft);
-    font-weight: 500;
-  }
-  .booking-toast .toast-close {
-    background: none;
-    border: none;
-    color: var(--gold-soft);
-    font-size: 1.1rem;
-    line-height: 1;
-    cursor: pointer;
-    padding: 0 0 0 0.4rem;
-    flex-shrink: 0;
-  }
-  @media (max-width: 600px) {
-    .booking-toast { left: 1rem; right: 1rem; bottom: 1rem; transform: translateY(20px); max-width: none; }
-    .booking-toast.show { transform: translateY(0); }
-  }
-
   /* ── Promise band (signature) ────────────────────────────── */
   .promise {
     background: var(--rouge);
@@ -524,26 +468,26 @@
       <div class="offer reveal">
         <h3>Tasting Packages</h3>
         <p>Curated tastings for one-on-ones and small groups, tailored to your palate and pace.</p>
-        <a class="go" href="https://book.usesession.com/t/tD4SSp84y" target="_blank" rel="noopener noreferrer" onclick="showBookingToast()">Book a tasting <span class="arrow">→</span></a>
-        <a class="offer-link" href="https://book.usesession.com/t/tD4SSp84y" target="_blank" rel="noopener noreferrer" onclick="showBookingToast()">Tasting Packages</a>
+        <a class="go" href="https://book.usesession.com/t/tD4SSp84y">Book a tasting <span class="arrow">→</span></a>
+        <a class="offer-link" href="https://book.usesession.com/t/tD4SSp84y">Tasting Packages</a>
       </div>
       <div class="offer reveal">
         <h3>Events</h3>
         <p>Bachelorette parties, corporate gatherings, and celebrations, curated end to end.</p>
-        <a class="go" href="https://book.usesession.com/t/K2lQftQnO" target="_blank" rel="noopener noreferrer" onclick="showBookingToast()">Plan an event <span class="arrow">→</span></a>
-        <a class="offer-link" href="https://book.usesession.com/t/K2lQftQnO" target="_blank" rel="noopener noreferrer" onclick="showBookingToast()">Events</a>
+        <a class="go" href="https://book.usesession.com/t/K2lQftQnO">Plan an event <span class="arrow">→</span></a>
+        <a class="offer-link" href="https://book.usesession.com/t/K2lQftQnO">Events</a>
       </div>
       <div class="offer reveal">
         <h3>Holiday Wine Boxes</h3>
         <p>Seasonal selections, thoughtfully assembled to gift or to gather around.</p>
-        <a class="go" href="https://book.usesession.com/t/toosJEVO32" target="_blank" rel="noopener noreferrer" onclick="showBookingToast()">Shop boxes <span class="arrow">→</span></a>
-        <a class="offer-link" href="https://book.usesession.com/t/toosJEVO32" target="_blank" rel="noopener noreferrer" onclick="showBookingToast()">Holiday Wine Boxes</a>
+        <a class="go" href="https://book.usesession.com/t/toosJEVO32">Shop boxes <span class="arrow">→</span></a>
+        <a class="offer-link" href="https://book.usesession.com/t/toosJEVO32">Holiday Wine Boxes</a>
       </div>
       <div class="offer reveal">
         <h3>Gift Cards</h3>
         <p>Give the gift of a memorable tasting — perfect for the wine lover in your life.</p>
-        <a class="go" href="https://book.usesession.com/i/4EOMfDx3Wx/gift-cards" target="_blank" rel="noopener noreferrer" onclick="showBookingToast()">Buy a gift card <span class="arrow">→</span></a>
-        <a class="offer-link" href="https://book.usesession.com/i/4EOMfDx3Wx/gift-cards" target="_blank" rel="noopener noreferrer" onclick="showBookingToast()">Gift Cards</a>
+        <a class="go" href="https://book.usesession.com/i/4EOMfDx3Wx/gift-cards">Buy a gift card <span class="arrow">→</span></a>
+        <a class="offer-link" href="https://book.usesession.com/i/4EOMfDx3Wx/gift-cards">Gift Cards</a>
       </div>
     </div>
 
@@ -649,13 +593,6 @@
   <p class="footer-meta">© 2025 Château Gustav · <a href="mailto:chateaugustav@gmail.com">chateaugustav@gmail.com</a></p>
 </footer>
 
-<!-- Shown briefly whenever a booking link opens in a new tab -->
-<div class="booking-toast" id="booking-toast" role="status" aria-live="polite">
-  <span class="toast-icon">✦</span>
-  <span class="toast-text">Opening secure booking in a new tab.<br><strong>Château Gustav</strong> stays right here.</span>
-  <button class="toast-close" aria-label="Dismiss" onclick="hideBookingToast()">×</button>
-</div>
-
 <script>
   // Subtle scroll reveal
   (function () {
@@ -671,20 +608,6 @@
     }, { threshold: 0.12 });
     els.forEach(function (el) { io.observe(el); });
   })();
-
-  // Booking toast — confirms the new tab opened, since the page itself
-  // never navigates away. Auto-dismisses after a few seconds.
-  var bookingToastTimer = null;
-  function showBookingToast() {
-    var toast = document.getElementById('booking-toast');
-    toast.classList.add('show');
-    clearTimeout(bookingToastTimer);
-    bookingToastTimer = setTimeout(hideBookingToast, 5000);
-  }
-  function hideBookingToast() {
-    document.getElementById('booking-toast').classList.remove('show');
-    clearTimeout(bookingToastTimer);
-  }
 </script>
 </body>
 </html>
