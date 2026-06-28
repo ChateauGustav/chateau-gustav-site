@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
+<script>document.documentElement.classList.add('js');</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="color-scheme" content="light" />
 <title>Château Gustav · Private Wine Tastings</title>
@@ -399,8 +400,10 @@
   .footer-meta a { color: var(--gold-soft); text-decoration: none; }
 
   /* ── Reveal animation ────────────────────────────────────── */
-  .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.7s ease, transform 0.7s ease; }
-  .reveal.in { opacity: 1; transform: none; }
+  /* Hidden-by-default only applies if JS actually ran (html.js).
+     No JS = content shows immediately, no broken-looking blank gaps. */
+  .js .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .js .reveal.in { opacity: 1; transform: none; }
 
   /* ── Focus visibility ────────────────────────────────────── */
   a:focus-visible, summary:focus-visible {
@@ -425,7 +428,7 @@
 
   @media (prefers-reduced-motion: reduce) {
     * { scroll-behavior: auto; }
-    .reveal { opacity: 1; transform: none; transition: none; }
+    .js .reveal { opacity: 1; transform: none; transition: none; }
   }
 </style>
 </head>
